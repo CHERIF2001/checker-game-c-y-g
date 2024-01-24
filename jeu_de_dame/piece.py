@@ -1,41 +1,48 @@
+import pygame
+from .constants import *
 
-# Create a surface for the button
-button_surface = pygame.Surface((100, 50))
 
-# Draw the button's text and border on the surface
-pygame.draw.rect(button_surface, (0, 0, 0), (0, 0, 100, 50))
-pygame.draw.rect(button_surface, (255, 255, 255), (1, 1, 98, 48))
-pygame.draw.rect(button_surface, (0, 0, 0), (1, 1, 98, 1), 2)
-pygame.draw.rect(button_surface, (0, 0, 0), (1, 48, 98, 1), 2)
-pygame.draw.text(button_surface, "Click Me!", (25, 25), (255, 255, 255))
+class Piece:
+	PADDING = 15
+	OUTLINE = 2
 
-# Create a pygame.Rect object that represents the button's boundaries
-button_rect = pygame.Rect(0, 0, 100, 50)
 
-# Create a pygame.event.MOUSEBUTTONDOWN event handler that checks if the mouse is clicked inside the button's boundaries
-def on_mouse_button_down(event):
-    if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and button_rect.collidepoint(event.pos):
-        print("Button clicked!")
+	def __init__(self, row, col, color):
+		self.row= row
+		self.col =col
+		self.color = color
+		self.king= False
+		self.x =0
+		self.y =0
+		self.calc_pos()
 
-# Call the pygame.display.update() function to display the button on the screen
-pygame.display.update()
 
-# Start the main loop
-while True:
-    # Get events from the event queue
-    for event in pygame.event.get():
-        # Check for the quit event
-        if event.type == pygame.QUIT:
-            # Quit the game
-            pygame.quit()
-            sys.exit()
+	"""	if self.color == RED:
+			self.direction = -1
+		else: 
+			self.direction = 1 """
 
-        # Check for the mouse button down event
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            # Call the on_mouse_button_down() function
-            on_mouse_button_down(event)
+	
+	#calculer les positions de x et y 
+	def calc_pos(self):
+		self.x = SQUARE_SIZE* self.col + SQUARE_SIZE//2
+		self.y = SQUARE_SIZE* self.row + SQUARE_SIZE//2
 
-    # Update the game state
+	def make_king(self):
+		self.king = True
 
-    # Draw the game screen
-    pygame.display.update()
+	def draw(self, win):
+		radius = SQUARE_SIZE//2 - self.PADDING
+		pygame.draw.circle(win, GREY, (self.x, self.y), radius + self.OUTLINE)
+		pygame.draw.circle(win, self.color, (self.x, self.y), radius)
+		if self.king:
+			win.blit(CROWN, (self.x - CROWN.get_width()//2, self.y - CROWN.get_height()//2))
+
+	def move(self, row, col):
+		self.row = row
+		self.col = col 
+		self.calc_pos()
+
+
+	def __repr__(self):
+		return str(self.color) 
