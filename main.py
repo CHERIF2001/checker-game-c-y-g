@@ -1,6 +1,8 @@
+# on importe nos packages 
+
 import pygame
-from jeu_de_dame.constants import *
-from jeu_de_dame.game import Game
+from checker_game.constants import *
+from checker_game.game import Game
 
 FPS= 60
 
