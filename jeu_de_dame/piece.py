@@ -16,6 +16,12 @@ class Piece:
 		self.y =0
 		self.calc_pos()
 
+
+	"""	if self.color == RED:
+			self.direction = -1
+		else: 
+			self.direction = 1 """
+
 	
 	#calculer les positions de x et y 
 	def calc_pos(self):
@@ -27,7 +33,7 @@ class Piece:
 
 	def draw(self, win):
 		radius = SQUARE_SIZE//2 - self.PADDING
-		# pygame.draw.circle(win, GREY, (self.x, self.y), radius + self.OUTLINE)
+		pygame.draw.circle(win, GREY, (self.x, self.y), radius + self.OUTLINE)
 		pygame.draw.circle(win, self.color, (self.x, self.y), radius)
 		if self.king:
 			win.blit(CROWN, (self.x - CROWN.get_width()//2, self.y - CROWN.get_height()//2))
