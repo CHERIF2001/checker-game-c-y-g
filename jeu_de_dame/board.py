@@ -1,17 +1,23 @@
 from .piece import *
+
+# on représente le plateau du jeu: 
+
 class Board:
+# on initialise les différentes variables 
     def __init__(self):
         self.board = []
         self.red_left = self.white_left = 12
         self.red_kings = self.white_kings = 0
         self.create_board()
 
+# on dessine les cases de notre jeu de dame
     def draw_squares(self, win):
         win.fill(BLACK)
         for row in range(ROWS):
             for col in range(row % 2, COLS, 2):
                 pygame.draw.rect(win, WHITE, (row * SQUARE_SIZE, col * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
 
+# on crée la méthode move permettant de déplacer une pièce d'un position à une autre
     def move(self, piece, row, col):
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
         piece.move(row, col)
