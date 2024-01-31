@@ -1,14 +1,19 @@
 # on importe nos packages 
 
 import pygame
-from checker_game.constants import *
-from checker_game.game import Game
+from jeu_de_dame.constants import *
+from jeu_de_dame.game import Game
+
+# pour 60 images par secondes 
 
 FPS= 60
 
+# Pour lire le jeu 
 WIN= pygame.display.set_mode((WIDTH,HEIGHT))
-pygame.display.set_caption('Checkers')
+pygame.display.set_caption('Jeu de dame de Cherif, Gracia et Yann') # intitulé de notre jeu
 
+
+# on definie une fonction qui gere les positions par rapport à la souris 
 def get_row_col_from_mouse(pos):
 	x, y = pos
 	row = y // SQUARE_SIZE
@@ -16,7 +21,7 @@ def get_row_col_from_mouse(pos):
 	return row, col
 
 
-
+# pour gerer la logique du jeu (déplacement du jeu, gagnant perdant, click en association avec la classe Game)
 def main():
 	run = True 
 	Clock = pygame.time.Clock()

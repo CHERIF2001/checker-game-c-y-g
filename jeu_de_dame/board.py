@@ -1,17 +1,23 @@
 from .piece import *
+
+# on représente le plateau du jeu: 
+
 class Board:
+# on initialise les différentes variables 
     def __init__(self):
         self.board = []
         self.red_left = self.white_left = 12
         self.red_kings = self.white_kings = 0
         self.create_board()
 
+# on dessine les cases de notre jeu de dame
     def draw_squares(self, win):
         win.fill(BLACK)
         for row in range(ROWS):
             for col in range(row % 2, COLS, 2):
-                pygame.draw.rect(win, GREY, (row * SQUARE_SIZE, col * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+                pygame.draw.rect(win, WHITE, (row * SQUARE_SIZE, col * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
 
+# on crée la méthode move permettant de déplacer une pièce d'un position à une autre
     def move(self, piece, row, col):
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
         piece.move(row, col)
@@ -23,9 +29,11 @@ class Board:
             else:
                 self.red_kings += 1
 
+# on veut retourner la pièce à une certaine position sur le jeu de dame
     def get_piece(self, row, col):
         return self.board[row][col]
 
+# on initialise notre jeu
     def create_board(self):
         for row in range(ROWS):
             self.board.append([])
@@ -40,6 +48,8 @@ class Board:
                 else:
                     self.board[row].append(0)
 
+
+# On dessine l'ensemble du plateau de jeu 
     def draw(self, win):
         self.draw_squares(win)
         for row in range(ROWS):
@@ -47,6 +57,7 @@ class Board:
                 piece = self.board[row][col]
                 if piece != 0:
                     piece.draw(win)
+
 
     def remove(self, pieces):
         for piece in pieces:
@@ -57,6 +68,7 @@ class Board:
                 else:
                     self.white_left -= 1
 
+# on retourne le joueur gagnant selon la couleur de la piece 
     def winner(self):
         if self.red_left <= 0:
             return WHITE
@@ -65,6 +77,7 @@ class Board:
 
         return None
 
+# cette méthode permet de déterminer les différents mouvements valides dans différentes direction (horizontale ou verticale)
     def get_valid_moves(self, piece):
         moves = {}
         left = piece.col - 1
@@ -80,6 +93,7 @@ class Board:
 
         return moves
 
+# mouvement à gauche 
     def _traverse_left(self, start, stop, step, color, left, skipped=[]):
         moves = {}
         last = []
@@ -111,6 +125,8 @@ class Board:
 
             left -= 1
         return moves
+
+# mouvement à droite 
 
     def _traverse_right(self, start, stop, step, color, right, skipped=[]):
         moves = {}
