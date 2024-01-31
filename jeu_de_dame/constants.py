@@ -12,7 +12,7 @@ BLACK =(0,0,0)
 BLUE = (0,0,255)
 GREY = (128, 128,128)
 
-CROWN= pygame.transform.scale(pygame.image.load('jeu_de_dame/crown.png'), (44,25))
+CROWN= pygame.transform.scale(pygame.image.load('./image/king.jpg'), (44,25))
 
 #definition des dimensions de la table de jeu
 pygame.init()
