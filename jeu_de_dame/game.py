@@ -31,7 +31,7 @@ class Game:
 		if self.selected:
 			result = self._move(row, col)
 			if not result: 
-				self selected = None 
+				self.selected = None
 				self.select(row, col)
 
 			piece = self.board.get_piece(row, col)
