@@ -24,9 +24,16 @@ class Piece:
 
     #Cette methode permet de dessiner une pièce
 	def draw(self, win):
-		radius = SQUARE_SIZE//2 - self.PADDING
-		pygame.draw.circle(win, GREY, (self.x, self.y), radius + self.OUTLINE)
-		pygame.draw.circle(win, self.color, (self.x, self.y), radius)
+		x = self.col * SQUARE_SIZE + SQUARE_SIZE // 2
+		y = self.row * SQUARE_SIZE + SQUARE_SIZE // 2
+
+		width = SQUARE_SIZE - 2 * self.PADDING
+		height = SQUARE_SIZE - 2 * self.PADDING
+		rect = pygame.Rect(x - width / 2, y - height / 2, width, height)
+
+		pygame.draw.rect(win, self.color, rect)
+		if self.king:
+			pygame.draw.rect(win, self.color, rect)
 		if self.king:
 			win.blit(CROWN, (self.x - CROWN.get_width()//2, self.y - CROWN.get_height()//2))
 
